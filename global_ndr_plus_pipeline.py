@@ -58,11 +58,15 @@ TARGET_WGS84_LENGTH_DEG = 10/3600
 BASE_WGS84_LENGTH_DEG = 10/3600/2
 AREA_DEG_THRESHOLD = 0.000016 * 10  # this is 10 times larger than hydrosheds 1 "pixel" watersheds
 
-# BASE ECOSHARDS THAT WILL BE ADDED TO ON RUNTIME
+# base ecoshards that will be added to by scenario modules
 ECOSHARDS = {
     DEM_ID: f'{ECOSHARD_PREFIX}ipbes-ndr-ecoshard-data/global_dem_3s_blake2b_0532bf0a1bedbe5a98d1dc449a33ef0c.zip',
     WATERSHED_ID: f'{ECOSHARD_PREFIX}ipbes-ndr-ecoshard-data/watersheds_globe_HydroSHEDS_15arcseconds_blake2b_14ac9c77d2076d51b0258fd94d9378d4.zip',
 }
+# these are defined from scenario modules
+BIOPHYSICAL_TABLE_IDS = {}
+SCENARIOS = {}
+SCRUB_IDS = {}
 
 
 def _setup_logger(name, log_file, level):
@@ -657,7 +661,7 @@ def main():
     """Entry point."""
     parser = argparse.ArgumentParser(description='Run CBD data pipeline')
     parser.add_argument(
-        'scenario_module', help='scenario module to load.')
+        'scenario_module', nargs='+', help='scenario module(s) to load.')
     parser.add_argument(
         '--n_workers', type=int, default=multiprocessing.cpu_count(),
         help='number of workers for Taskgraph.')
@@ -666,8 +670,12 @@ def main():
         help='comma separated list of watershed-basename,fid to simulate')
     args = parser.parse_args()
 
-    scenario_module = importlib.import_module(args.scenario_module)
-    ECOSHARDS.update(scenario_module.ECOSHARDS)
+    for scenario_module in args.scenario_module:
+        scenario_module = importlib.import_module(args.scenario_module)
+        ECOSHARDS.update(scenario_module.ECOSHARDS)
+        BIOPHYSICAL_TABLE_IDS.update(scenario_module.BIOPHYSICAL_TABLE_IDS)
+        SCENARIOS.update(scenario_module.SCENARIOS)
+        SCRUB_IDS.update(scenario_module.SCRUB_IDS)
 
     LOGGER.debug('starting script')
     os.makedirs(WORKSPACE_DIR, exist_ok=True)
@@ -715,7 +723,7 @@ def main():
     invalid_value_task_list = []
     LOGGER.debug('scheduling scrub of requested data')
     os.makedirs(SCRUB_DIR, exist_ok=True)
-    for ecoshard_id_to_scrub in scenario_module.SCRUB_IDS:
+    for ecoshard_id_to_scrub in SCRUB_IDS:
         ecoshard_path = ecoshard_path_map[ecoshard_id_to_scrub]
         scrub_path = os.path.join(SCRUB_DIR, os.path.basename(ecoshard_path))
         task_graph.add_task(
@@ -775,7 +783,7 @@ def main():
                     scenario_id, watershed_id, watershed_area, status)
             VALUES(?, ?, ?, ?);
         '''
-        for scenario_id in scenario_module.SCENARIOS:
+        for scenario_id in SCENARIOS:
             # schedule all the watersheds that are large enough per scenario
             # for this particular watershed path
             argument_list = [
@@ -799,10 +807,10 @@ def main():
     stitch_worker_list = []
     stitch_queue_list = []
     target_raster_list = []
-    for scenario_id, scenario_vars in scenario_module.SCENARIOS.items():
+    for scenario_id, scenario_vars in SCENARIOS.items():
         eff_n_lucode_map, load_n_lucode_map = load_biophysical_table(
             ecoshard_path_map[scenario_vars['biophysical_table_id']],
-            scenario_module.BIOPHYSICAL_TABLE_IDS[scenario_vars['biophysical_table_id']])
+            BIOPHYSICAL_TABLE_IDS[scenario_vars['biophysical_table_id']])
 
         # make a stitcher for this scenario for export and modified load
         stitch_queue = manager.Queue()

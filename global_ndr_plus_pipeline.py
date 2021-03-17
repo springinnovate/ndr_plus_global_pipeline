@@ -672,9 +672,13 @@ def main():
 
     for scenario_module_name in args.scenario_module_name:
         scenario_module = importlib.import_module(scenario_module_name)
+        LOGGER.debug(f'updating ECOSHARDS with {scenario_module.ECOSHARDS}')
         ECOSHARDS.update(scenario_module.ECOSHARDS)
+        LOGGER.debug(f'updating BIOPHYSICAL_TABLE_IDS with {scenario_module.BIOPHYSICAL_TABLE_IDS}')
         BIOPHYSICAL_TABLE_IDS.update(scenario_module.BIOPHYSICAL_TABLE_IDS)
+        LOGGER.debug(f'updating SCENARIOS with {scenario_module.SCENARIOS}')
         SCENARIOS.update(scenario_module.SCENARIOS)
+        LOGGER.debug(f'updating SCRUB_IDS with {scenario_module.SCRUB_IDS}')
         SCRUB_IDS.update(scenario_module.SCRUB_IDS)
 
     LOGGER.debug('starting script')

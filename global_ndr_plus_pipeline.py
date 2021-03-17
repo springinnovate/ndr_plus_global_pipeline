@@ -93,7 +93,7 @@ LOGGER = _setup_logger('cbd_global_ndr_plus', 'log.out', level=logging.DEBUG)
 PYGEOPROCESSING_LOGGER = _setup_logger('pygeoprocessing', 'pygeoprocessinglog.out', level=logging.INFO)
 INSPRING_LOGGER = _setup_logger('inspring', 'inspringlog.out', level=logging.DEBUG)
 REPORT_WATERSHED_LOGGER = _setup_logger('report_watershed', 'report_watershed.out', level=logging.DEBUG)
-EVERYTHING_LOGGER = _setup_logger(__name__, 'everythinglog.out', level=logging.DEBUG)
+ECOSHARD_LOGGER = _setup_logger('ecoshard', 'ecoshard.out', level=logging.DEBUG)
 
 
 @retrying.retry(

@@ -66,7 +66,7 @@ ECOSHARDS = {
 # these are defined from scenario modules
 BIOPHYSICAL_TABLE_IDS = {}
 SCENARIOS = {}
-SCRUB_IDS = {}
+SCRUB_IDS = set()
 
 
 def _setup_logger(name, log_file, level):

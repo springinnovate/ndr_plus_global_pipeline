@@ -21,7 +21,6 @@ ECOSHARDS = {
 # put IDs here that need to be scrubbed, you may know these a priori or you
 # may run the pipeline and see an error and realize you need to add them
 SCRUB_IDS = {
-    'worldclim_ssp3',
 }
 
 # DEFINE SCENARIOS HERE SPECIFYING 'lulc_id', 'precip_id', 'fertilizer_id', and 'biophysical_table_id'

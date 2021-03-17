@@ -661,7 +661,7 @@ def main():
     """Entry point."""
     parser = argparse.ArgumentParser(description='Run CBD data pipeline')
     parser.add_argument(
-        'scenario_module', nargs='+', help='scenario module(s) to load.')
+        'scenario_module_name', nargs='+', help='scenario module(s) to load.')
     parser.add_argument(
         '--n_workers', type=int, default=multiprocessing.cpu_count(),
         help='number of workers for Taskgraph.')
@@ -670,8 +670,8 @@ def main():
         help='comma separated list of watershed-basename,fid to simulate')
     args = parser.parse_args()
 
-    for scenario_module in args.scenario_module:
-        scenario_module = importlib.import_module(args.scenario_module)
+    for scenario_module_name in args.scenario_module_name:
+        scenario_module = importlib.import_module(scenario_module_name)
         ECOSHARDS.update(scenario_module.ECOSHARDS)
         BIOPHYSICAL_TABLE_IDS.update(scenario_module.BIOPHYSICAL_TABLE_IDS)
         SCENARIOS.update(scenario_module.SCENARIOS)

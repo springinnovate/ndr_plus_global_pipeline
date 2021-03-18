@@ -492,6 +492,7 @@ def ndr_plus_and_stitch(
         retention_length_m,
         k_val,
         flow_threshold,
+        max_pixel_fill_count,
         routing_algorithm,
         dem_path,
         lulc_path,
@@ -517,11 +518,13 @@ def ndr_plus_and_stitch(
         watershed_basename, watershed_id = _create_watershed_id(watershed_path, watershed_fid)
         LOGGER.debug(f'{watershed_id} about to be run')
         ndr_plus(
-            watershed_path, watershed_fid,
+            watershed_path,
+            watershed_fid,
             target_cell_length_m,
             retention_length_m,
             k_val,
             flow_threshold,
+            max_pixel_fill_count,
             routing_algorithm,
             dem_path,
             lulc_path,
@@ -532,6 +535,7 @@ def ndr_plus_and_stitch(
             target_export_raster_path,
             target_modified_load_raster_path,
             workspace_dir)
+
         LOGGER.debug(f'{watershed_id} is done')
         _set_work_status(
             WORK_STATUS_DATABASE_PATH,

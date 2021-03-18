@@ -22,7 +22,7 @@ ECOSHARDS = {
     'fixedarea_bmps_rainfed': f'{ECOSHARD_PREFIX}nci-ecoshards/one_last_run/scenarios0620_fixedarea_bmps_rainfed_md5_ff56f75f23cedf8d9181c6c7af71cf23.tif',
     'fixedarea_intensified_irrigated': f'{ECOSHARD_PREFIX}nci-ecoshards/one_last_run/scenarios052320_fixedarea_intensified_irrigated_md5_0b96c3ff00696a454d6c2fffb2ee1415.tif',
     'fixedarea_intensified_rainfed': f'{ECOSHARD_PREFIX}nci-ecoshards/one_last_run/scenarios052320_fixedarea_intensified_rainfed_md5_ec3a78c825186a12c16f3f7442eb03f4.tif',
-    'grazing_expansion_lulc': f'{ECOSHARD_PREFIX}nci-ecoshards/scenarios0221_grazing_expansion_md5_140803bc8aef02a1742aa1d1757e9e76.tif',
+    'grazing_expansion_lulc': f'{ECOSHARD_PREFIX}nci-ecoshards/one_last_run/scenarios0221_grazing_expansion_md5_140803bc8aef02a1742aa1d1757e9e76.tif',
     'restoration': f'{ECOSHARD_PREFIX}nci-ecoshards/one_last_run/scenarios0221_restoration_md5_16450b43f0a232b32a847c9738affda3.tif',
     'sustainable_current': f'{ECOSHARD_PREFIX}nci-ecoshards/one_last_run/scenarios0321_sustainable_current_md5_82afe022ffa8485a9b10154ee844b54f.tif',
     # Fertilizer

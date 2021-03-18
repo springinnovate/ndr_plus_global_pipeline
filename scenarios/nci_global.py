@@ -24,7 +24,7 @@ ECOSHARDS = {
     'fixedarea_intensified_rainfed': f'{ECOSHARD_PREFIX}nci-ecoshards/one_last_run/scenarios052320_fixedarea_intensified_rainfed_md5_ec3a78c825186a12c16f3f7442eb03f4.tif',
     'grazing_expansion': f'{ECOSHARD_PREFIX}nci-ecoshards/scenarios0221_grazing_expansion_md5_140803bc8aef02a1742aa1d1757e9e76.tif',
     'restoration': f'{ECOSHARD_PREFIX}nci-ecoshards/one_last_run/scenarios0221_restoration_md5_16450b43f0a232b32a847c9738affda3.tif',
-    'sustainable_current': f'{ECOSHARD_PREFIX}nci-ecoshards/one_last_run/scenarios0321_sustainable_current_md5_82afe022ffa8485a9b10154ee844b54f.tif'
+    'sustainable_current': f'{ECOSHARD_PREFIX}nci-ecoshards/one_last_run/scenarios0321_sustainable_current_md5_82afe022ffa8485a9b10154ee844b54f.tif',
     # Fertilizer
     'intensificationnapp_allcrops_irrigated_max_model_and_observednapprevb_bmps': f'{ECOSHARD_PREFIX}nci-ecoshards/scenarios050420/IntensificationNapp_allcrops_irrigated_max_Model_and_observedNappRevB_BMPs_md5_ddc000f7ce7c0773039977319bcfcf5d.tif',
     'intensificationnapp_allcrops_rainfed_max_model_and_observednapprevb_bmps': f'{ECOSHARD_PREFIX}nci-ecoshards/scenarios050420/IntensificationNapp_allcrops_rainfed_max_Model_and_observedNappRevB_BMPs_md5_fa2684c632ec2d0e0afb455b41b5d2a6.tif',

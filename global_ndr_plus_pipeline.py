@@ -53,6 +53,7 @@ RETENTION_LENGTH_M = 150
 K_VAL = 1.0
 TARGET_CELL_LENGTH_M = 300
 FLOW_THRESHOLD = int(500**2*90 / TARGET_CELL_LENGTH_M**2)
+MAX_PIXEL_FILL_COUNT = 500  # distance to search to fill a pixel
 ROUTING_ALGORITHM = 'D8'
 TARGET_WGS84_LENGTH_DEG = 10/3600
 BASE_WGS84_LENGTH_DEG = 10/3600/2
@@ -891,6 +892,7 @@ def main():
                     RETENTION_LENGTH_M,
                     K_VAL,
                     FLOW_THRESHOLD,
+                    MAX_PIXEL_FILL_COUNT,
                     ROUTING_ALGORITHM,
                     DEM_VRT_PATH,
                     ecoshard_path_map[scenario_vars['lulc_id']],

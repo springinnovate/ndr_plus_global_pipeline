@@ -469,7 +469,8 @@ def stitch_worker(
                 process.join()
             LOGGER.debug(f'all done stitching for {scenario_id}')
     except Exception:
-        LOGGER.exception('something bad happened on ndr stitcher')
+        LOGGER.exception(
+            f'something bad happened on ndr stitcher for {scenario_id}')
         raise
 
 
@@ -909,19 +910,13 @@ def main():
                     local_workspace_dir,
                     stitch_queue),
                 task_name=f'{watershed_basename}_{watershed_fid}')
-
-    LOGGER.debug(
-        'watersheds are scheduled, joining taskgraph to wait for ndr_plus to '
-        'complete on those')
-    task_graph.join()
-    task_graph.close()
-    LOGGER.debug('ready to dump None to stitch queues')
-    for stitch_queue in stitch_queue_list:
+        LOGGER.info(f'waiting for scenario {scenario_id} to finish.')
+        task_graph.join()
         stitch_queue.put(None)
-    LOGGER.debug('joining stitch worker threads')
-    for stitch_worker_thread in stitch_worker_list:
+        LOGGER.debug(
+            f'joining stitch worker thread for scenario {scenario_id}')
         stitch_worker_thread.join()
-    LOGGER.debug('resampling up to half the size')
+
     LOGGER.debug('ALL DONE!')
 
 

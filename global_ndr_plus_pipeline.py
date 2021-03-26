@@ -674,6 +674,9 @@ def main():
     parser.add_argument(
         '--watersheds', type=str, nargs='+',
         help='comma separated list of watershed-basename,fid to simulate')
+    parser.add_argument(
+        '--limit_to_scenarios', type=str, nargs='+',
+        help='list the scenario keys which this run should only do.')
     args = parser.parse_args()
 
     for scenario_module_name in args.scenario_module_name:
@@ -683,7 +686,13 @@ def main():
         LOGGER.debug(f'updating BIOPHYSICAL_TABLE_IDS with {scenario_module.BIOPHYSICAL_TABLE_IDS}')
         BIOPHYSICAL_TABLE_IDS.update(scenario_module.BIOPHYSICAL_TABLE_IDS)
         LOGGER.debug(f'updating SCENARIOS with {scenario_module.SCENARIOS}')
-        SCENARIOS.update(scenario_module.SCENARIOS)
+        if args.limit_to_scenarios:
+            SCENARIOS.update(
+                {key: value for key, value in
+                 scenario_module.SCENARIOS.items()
+                 if key in args.limit_to_scenarios})
+        else:
+            SCENARIOS.update(scenario_module.SCENARIOS)
         LOGGER.debug(f'updating SCRUB_IDS with {scenario_module.SCRUB_IDS}')
         SCRUB_IDS.update(scenario_module.SCRUB_IDS)
 

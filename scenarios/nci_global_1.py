@@ -41,10 +41,10 @@ SCRUB_IDS = {
 # DEFINE SCENARIOS HERE SPECIFYING 'lulc_id', 'precip_id', 'fertilizer_id', and 'biophysical_table_id'
 # name the key of the scenario something unique
 SCENARIOS = {
-    'sustainable_currentpractices': {
+    'intensified_currentextent': {
         'lulc_id': 'sustainable_current',
         'precip_id': 'worldclim_2015',
-        'fertilizer_id': 'extensificationnapp_allcrops_rainfedfootprint_gapfilled_observednapprevb',
+        'fertilizer_id': 'intensificationnapp_allcrops_irrigated_max_model_and_observednapprevb',
         'biophysical_table_id': 'nci-ndr-biophysical_table_forestry_grazing',
     },
 }

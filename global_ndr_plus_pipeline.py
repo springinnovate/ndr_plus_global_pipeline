@@ -28,7 +28,13 @@ import taskgraph
 gdal.SetCacheMax(2**27)
 logging.getLogger('taskgraph').setLevel(logging.INFO)
 
-WORKSPACE_DIR = 'global_ndr_plus_workspace'
+# Using an ENV-defined workspace means we can run multiple individual scenarios
+# in different workspaces separately.
+try:
+    WORKSPACE_DIR = os.environ['WORKSPACE_DIR']
+except KeyError:
+    WORKSPACE_DIR = 'global_ndr_plus_workspace'
+
 ECOSHARD_DIR = os.path.join(WORKSPACE_DIR, 'ecoshards')
 SCRUB_DIR = os.path.join(ECOSHARD_DIR, 'scrubbed_ecoshards')
 WORK_STATUS_DATABASE_PATH = os.path.join(WORKSPACE_DIR, 'work_status.db')

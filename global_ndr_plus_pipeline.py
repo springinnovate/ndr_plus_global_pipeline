@@ -76,18 +76,18 @@ SCENARIOS = {}
 SCRUB_IDS = set()
 
 
-def _setup_logger(name, log_file, level):
+def _setup_logger(name, log_filename, level):
     """Create arbitrary logger to file.
 
     Args:
         name (str): arbitrary name of logger
-        log_file (str): path to file to log to
+        log_filename (str): filename in workspace to log to
         level (logging.LEVEL): the log level to report.
 
     Return:
         logger object
     """
-    handler = logging.FileHandler(log_file)
+    handler = logging.FileHandler(os.path.join(WORKSPACE_DIR, log_filename))
     formatter = logging.Formatter('%(asctime)s %(levelname)s %(message)s')
     handler.setFormatter(formatter)
     logger = logging.getLogger(name)

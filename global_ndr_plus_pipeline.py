@@ -2,28 +2,28 @@
 import argparse
 import collections
 import glob
-import logging
 import importlib
+import logging
 import multiprocessing
 import os
 import pathlib
 import re
-import subprocess
-import sqlite3
 import shutil
-import time
+import sqlite3
+import subprocess
 import threading
+import time
 import zipfile
 
+import ecoshard
+import numpy
+import pandas
+import pygeoprocessing
+import retrying
+import taskgraph
 from inspring.ndr_plus.ndr_plus import ndr_plus
 from osgeo import gdal
 from osgeo import osr
-import ecoshard
-import pandas
-import pygeoprocessing
-import numpy
-import retrying
-import taskgraph
 
 gdal.SetCacheMax(2**27)
 logging.getLogger('taskgraph').setLevel(logging.INFO)
@@ -714,12 +714,21 @@ def main():
     LOGGER.info('scheduling downloads')
     LOGGER.debug('starting downloads')
     for ecoshard_id, ecoshard_url in ECOSHARDS.items():
-        ecoshard_path = os.path.join(
-            ECOSHARD_DIR, os.path.basename(ecoshard_url))
-        download_task = task_graph.add_task(
-            func=ecoshard.download_url,
-            args=(ecoshard_url, ecoshard_path),
-            target_path_list=[ecoshard_path])
+        # If the ecoshard path is local, just use that.
+        if os.path.exists(ecoshard_url):
+            LOGGER.info(f'Using local ecoshard {ecoshard_url}')
+            ecoshard_path = ecoshard_url
+
+        # Otherwise, download the ecoshard.
+        else:
+            LOGGER.info(f'Downloading ecoshard {ecoshard_url}')
+            ecoshard_path = os.path.join(
+                ECOSHARD_DIR, os.path.basename(ecoshard_url))
+            download_task = task_graph.add_task(
+                func=ecoshard.download_url,
+                args=(ecoshard_url, ecoshard_path),
+                target_path_list=[ecoshard_path])
+
         ecoshard_path_map[ecoshard_id] = ecoshard_path
     LOGGER.info('waiting for downloads to finish')
     task_graph.join()

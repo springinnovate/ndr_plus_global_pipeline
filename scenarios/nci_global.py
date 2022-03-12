@@ -1,10 +1,14 @@
 """CBD Global NDR scenario."""
+import os
+
 # All links in this dict is an ecoshard that will be downloaded to
 # ECOSHARD_DIR
 ECOSHARD_PREFIX = 'https://storage.googleapis.com/'
 
 BIOPHYSICAL_TABLE_IDS = {
     'nci-ndr-biophysical_table_forestry_grazing': 'ID', }
+
+SHERLOCK_SCRATCH = os.environ['SCRATCH']
 
 # ADD NEW DATA HERE
 ECOSHARDS = {
@@ -25,19 +29,42 @@ ECOSHARDS = {
     'grazing_expansion_lulc': f'{ECOSHARD_PREFIX}nci-ecoshards/one_last_run/scenarios0221_grazing_expansion_md5_140803bc8aef02a1742aa1d1757e9e76.tif',
     'restoration': f'{ECOSHARD_PREFIX}nci-ecoshards/one_last_run/scenarios0221_restoration_md5_16450b43f0a232b32a847c9738affda3.tif',
     'sustainable_current': f'{ECOSHARD_PREFIX}nci-ecoshards/one_last_run/scenarios0321_sustainable_current_md5_82afe022ffa8485a9b10154ee844b54f.tif',
+
     # Fertilizer
+    ## Section 1 - these were already commented out by the time I (JD) got here
+    ## with the first runs on Sherlock in October, 2021.
     #'intensificationnapp_allcrops_irrigated_max_model_and_observednapprevb_bmps': f'{ECOSHARD_PREFIX}nci-ecoshards/scenarios050420/IntensificationNapp_allcrops_irrigated_max_Model_and_observedNappRevB_BMPs_md5_ddc000f7ce7c0773039977319bcfcf5d.tif',
     #'intensificationnapp_allcrops_rainfed_max_model_and_observednapprevb_bmps': f'{ECOSHARD_PREFIX}nci-ecoshards/scenarios050420/IntensificationNapp_allcrops_rainfed_max_Model_and_observedNappRevB_BMPs_md5_fa2684c632ec2d0e0afb455b41b5d2a6.tif',
     #'extensificationnapp_allcrops_rainfedfootprint_gapfilled_observednapprevb': f'{ECOSHARD_PREFIX}nci-ecoshards/scenarios050420/ExtensificationNapp_allcrops_rainfedfootprint_gapfilled_observedNappRevB_md5_1185e457751b672c67cc8c6bf7016d03.tif',
     #'intensificationnapp_allcrops_irrigated_max_model_and_observednapprevb': f'{ECOSHARD_PREFIX}nci-ecoshards/scenarios050420/IntensificationNapp_allcrops_irrigated_max_Model_and_observedNappRevB_md5_9331ed220772b21f4a2c81dd7a2d7e10.tif',
     #'intensificationnapp_allcrops_rainfed_max_model_and_observednapprevb': f'{ECOSHARD_PREFIX}nci-ecoshards/scenarios050420/IntensificationNapp_allcrops_rainfed_max_Model_and_observedNappRevB_md5_1df3d8463641ffc6b9321e73973f3444.tif',
-    'intensificationnapp_irrigated_bmps': f'{ECOSHARD_PREFIX}nci-ecoshards/one_last_run/finaltotalNfertratesirrigatedRevQ_BMPs_add_background_md5_a1bd38eaffd702079ab36c0bc46d770d.tif',
-    'intensificationnapp_rainfed_bmps': f'{ECOSHARD_PREFIX}nci-ecoshards/one_last_run/finaltotalNfertratesrainfedRevQ_BMPs_add_background_md5_b2232462adcae42eb8c1bf3403a0cf6b.tif',
-    'extensificationnapp_rainfedfootprint_gapfilled': f'{ECOSHARD_PREFIX}nci-ecoshards/one_last_run/finaltotalNfertratescurrentRevQ_add_background_md5_bd57fc740fe61b99133a4e22d3e89ece.tif',
-    'intensificationnapp_irrigated': f'{ECOSHARD_PREFIX}nci-ecoshards/one_last_run/finaltotalNfertratesirrigatedRevQ_add_background_md5_b763d688a87360d37868d6a0fbd6b68a.tif',
-    'intensificationnapp_rainfed': f'{ECOSHARD_PREFIX}nci-ecoshards/one_last_run/finaltotalNfertratesrainfedRevQ_add_background_md5_9f6a8dd89d25e4d7c413d268731a14f8.tif',
+
+    ## Section 2 - these were the fertilizer application rasters used for the
+    ## October, 2021 runs of NCI on Sherlock that I (JD) triggered.
+    #'intensificationnapp_irrigated_bmps': f'{ECOSHARD_PREFIX}nci-ecoshards/one_last_run/finaltotalNfertratesirrigatedRevQ_BMPs_add_background_md5_a1bd38eaffd702079ab36c0bc46d770d.tif',
+    #'intensificationnapp_rainfed_bmps': f'{ECOSHARD_PREFIX}nci-ecoshards/one_last_run/finaltotalNfertratesrainfedRevQ_BMPs_add_background_md5_b2232462adcae42eb8c1bf3403a0cf6b.tif',
+    #'extensificationnapp_rainfedfootprint_gapfilled': f'{ECOSHARD_PREFIX}nci-ecoshards/one_last_run/finaltotalNfertratescurrentRevQ_add_background_md5_bd57fc740fe61b99133a4e22d3e89ece.tif',
+    #'intensificationnapp_irrigated': f'{ECOSHARD_PREFIX}nci-ecoshards/one_last_run/finaltotalNfertratesirrigatedRevQ_add_background_md5_b763d688a87360d37868d6a0fbd6b68a.tif',
+    #'intensificationnapp_rainfed': f'{ECOSHARD_PREFIX}nci-ecoshards/one_last_run/finaltotalNfertratesrainfedRevQ_add_background_md5_9f6a8dd89d25e4d7c413d268731a14f8.tif',
+
+    ## Section 3 - these are the fertilizer application rasters that Peter made
+    ## in early March, 2022 in response to Becky noticing that there was
+    ## something wrong with the previous fertilizer rasters.
+    ##
+    ## These are located on the Sherlock $SCRATCH partition because Rich took
+    ## over control of the ecoshards project on GCP and I can't just upload
+    ## these ecoshards there at the moment.
+    'intensificationnapp_irrigated_bmps': f'{SHERLOCK_SCRATCH}/nci-ecoshards/fertilizer-layers-2022-03-08/intensified_irrigated_n_app_bmps_md5_a773d463101ef827849ef847ddbbe881.tif',
+    'intensificationnapp_rainfed_bmps': f'{SHERLOCK_SCRATCH}/nci-ecoshards/fertilizer-layers-2022-03-08/intensified_rainfed_n_app_bmps_md5_7637f211bb13a3ec66b00491d9518110.tif',
+    'extensificationnapp_rainfedfootprint_gapfilled': f'{SHERLOCK_SCRATCH}/nci-ecoshards/fertilizer-layers-2022-03-08/current_n_app_md5_a7e226b3418504591095a704c2409f16.tif',
+    'intensificationnapp_irrigated': f'{SHERLOCK_SCRATCH}/nci-ecoshards/fertilizer-layers-2022-03-08/intensified_irrigated_n_app_md5_f472499f546b92835e8011b2654b253a.tif',
+    'intensificationnapp_rainfed': f'{SHERLOCK_SCRATCH}/nci-ecoshards/fertilizer-layers-2022-03-08/intensified_rainfed_n_app_md5_48687737e6fdf931ddb163c6c9694e44.tif',
 }
 
+# JD sanity check to make sure these files exist.
+for key, value in ECOSHARDS.items():
+    if value.startswith(SHERLOCK_SCRATCH):
+        assert os.path.exists(value)
 
 # put IDs here that need to be scrubbed, you may know these a priori or you
 # may run the pipeline and see an error and realize you need to add them

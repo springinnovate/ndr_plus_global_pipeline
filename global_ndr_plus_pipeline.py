@@ -35,6 +35,11 @@ try:
 except KeyError:
     WORKSPACE_DIR = 'global_ndr_plus_workspace'
 
+try:
+    LOCAL_ECOSHARD_CACHE_DIR = os.environ['ECOSHARD_CACHE_DIR']
+except KeyError:
+    LOCAL_ECOSHARD_CACHE_DIR = '/home/groups/gdaily/nci-local-ecoshard-cache'
+
 ECOSHARD_DIR = os.path.join(WORKSPACE_DIR, 'ecoshards')
 SCRUB_DIR = os.path.join(ECOSHARD_DIR, 'scrubbed_ecoshards')
 WORK_STATUS_DATABASE_PATH = os.path.join(WORKSPACE_DIR, 'work_status.db')
@@ -713,7 +718,6 @@ def main():
     ecoshard_path_map = {}
     LOGGER.info('scheduling downloads')
     LOGGER.debug('starting downloads')
-    local_cache_dir = '/home/groups/gdaily/nci-local-ecoshard-cache'
     for ecoshard_id, ecoshard_url in ECOSHARDS.items():
         ecoshard_basename = os.path.basename(ecoshard_url)
         # If the ecoshard path is local and where we expect, just use that.
@@ -724,8 +728,9 @@ def main():
         # In case the ecoshard path is in the ecoshard cache directory, use
         # that.
         elif os.path.exists(
-                os.path.join(local_cache_dir, ecoshard_basename)):
-            ecoshard_path = os.path.join(local_cache_dir, ecoshard_basename)
+                os.path.join(LOCAL_ECOSHARD_CACHE_DIR, ecoshard_basename)):
+            ecoshard_path = os.path.join(
+                LOCAL_ECOSHARD_CACHE_DIR, ecoshard_basename)
 
         # Otherwise, download the ecoshard.
         else:

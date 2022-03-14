@@ -713,17 +713,25 @@ def main():
     ecoshard_path_map = {}
     LOGGER.info('scheduling downloads')
     LOGGER.debug('starting downloads')
+    local_cache_dir = '/home/groups/gdaily/nci-local-ecoshard-cache'
     for ecoshard_id, ecoshard_url in ECOSHARDS.items():
-        # If the ecoshard path is local, just use that.
+        ecoshard_basename = os.path.basename(ecoshard_url)
+        # If the ecoshard path is local and where we expect, just use that.
         if os.path.exists(ecoshard_url):
             LOGGER.info(f'Using local ecoshard {ecoshard_url}')
             ecoshard_path = ecoshard_url
+
+        # In case the ecoshard path is in the ecoshard cache directory, use
+        # that.
+        elif os.path.exists(
+                os.path.join(local_cache_dir, ecoshard_basename)):
+            ecoshard_path = os.path.join(local_cache_dir, ecoshard_basename)
 
         # Otherwise, download the ecoshard.
         else:
             LOGGER.info(f'Downloading ecoshard {ecoshard_url}')
             ecoshard_path = os.path.join(
-                ECOSHARD_DIR, os.path.basename(ecoshard_url))
+                ECOSHARD_DIR, ecoshard_basename)
             download_task = task_graph.add_task(
                 func=ecoshard.download_url,
                 args=(ecoshard_url, ecoshard_path),

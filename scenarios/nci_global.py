@@ -68,7 +68,13 @@ for key, value in ECOSHARDS.items():
 
 # put IDs here that need to be scrubbed, you may know these a priori or you
 # may run the pipeline and see an error and realize you need to add them
-SCRUB_IDS = set()
+SCRUB_IDS = set([
+    'intensificationnapp_irrigated_bmps',
+    'intensificationnapp_rainfed_bmps',
+    'extensificationnapp_rainfedfootprint_gapfilled',
+    'intensificationnapp_irrigated',
+    'intensificationnapp_rainfed',
+])
 
 # DEFINE SCENARIOS HERE SPECIFYING 'lulc_id', 'precip_id', 'fertilizer_id', and 'biophysical_table_id'
 # name the key of the scenario something unique

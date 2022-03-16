@@ -720,29 +720,34 @@ def main():
     LOGGER.debug('starting downloads')
     for ecoshard_id, ecoshard_url in ECOSHARDS.items():
         ecoshard_basename = os.path.basename(ecoshard_url)
+        cached_ecoshard_path = os.path.join(LOCAL_ECOSHARD_CACHE_DIR,
+                                            ecoshard_basename)
+
         # If the ecoshard path is local and where we expect, just use that.
         if os.path.exists(ecoshard_url):
             LOGGER.info(f'Using local ecoshard {ecoshard_url}')
-            ecoshard_path = ecoshard_url
+            fetch_func = shutil.copyfile
+            source_ecoshard_path = ecoshard_url
 
-        # In case the ecoshard path is in the ecoshard cache directory, use
-        # that.
-        elif os.path.exists(
-                os.path.join(LOCAL_ECOSHARD_CACHE_DIR, ecoshard_basename)):
-            ecoshard_path = os.path.join(
-                LOCAL_ECOSHARD_CACHE_DIR, ecoshard_basename)
+        # If the ecoshard doesn't exist at the path we expect, check the cache.
+        elif os.path.exists(cached_ecoshard_path):
+            LOGGER.info(f'Copying ecoshard from cache {ecoshard_url}')
+            fetch_func = shutil.copyfile
+            source_ecoshard_path = cached_ecoshard_path
 
         # Otherwise, download the ecoshard.
         else:
             LOGGER.info(f'Downloading ecoshard {ecoshard_url}')
-            ecoshard_path = os.path.join(
-                ECOSHARD_DIR, ecoshard_basename)
-            download_task = task_graph.add_task(
-                func=ecoshard.download_url,
-                args=(ecoshard_url, ecoshard_path),
-                target_path_list=[ecoshard_path])
+            fetch_func = ecoshard.download_url
+            source_ecoshard_path = ecoshard_url
 
-        ecoshard_path_map[ecoshard_id] = ecoshard_path
+        target_ecoshard_path = os.path.join(ECOSHARD_DIR, ecoshard_basename)
+        fetch_task = task_graph.add_task(
+            func=fetch_func,
+            args=(source_ecoshard_path, target_ecoshard_path),
+            target_path_list=[target_ecoshard_path])
+
+        ecoshard_path_map[ecoshard_id] = target_ecoshard_path
     LOGGER.info('waiting for downloads to finish')
     task_graph.join()
 

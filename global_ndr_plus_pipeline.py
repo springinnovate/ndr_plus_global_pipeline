@@ -783,8 +783,17 @@ def main():
     invalid_value_task_list = []
     LOGGER.debug('scheduling scrub of requested data')
     os.makedirs(SCRUB_DIR, exist_ok=True)
-    for ecoshard_id_to_scrub, target_nodata in SCRUB_IDS.items():
+    for ecoshard_id_to_scrub in SCRUB_IDS:
         ecoshard_path = ecoshard_path_map[ecoshard_id_to_scrub]
+
+        # Check the nodata value.  If no nodata value is set, assume it should
+        # be nan.  This is the case for the March, 2022 fertilizer application
+        # rasters.
+        target_nodata = pygeoprocessing.get_raster_info(
+            ecoshard_path)['nodata'][0]
+        if target_nodata is None:
+            target_nodata = float('nan')
+
         scrub_path = os.path.join(SCRUB_DIR, os.path.basename(ecoshard_path))
         task_graph.add_task(
             func=scrub_raster,

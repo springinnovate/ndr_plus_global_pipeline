@@ -1,6 +1,8 @@
 """CBD Global NDR scenario."""
 import os
 
+import numpy
+
 # All links in this dict is an ecoshard that will be downloaded to
 # ECOSHARD_DIR
 ECOSHARD_PREFIX = 'https://storage.googleapis.com/'
@@ -68,13 +70,14 @@ for key, value in ECOSHARDS.items():
 
 # put IDs here that need to be scrubbed, you may know these a priori or you
 # may run the pipeline and see an error and realize you need to add them
-SCRUB_IDS = set([
-    'intensificationnapp_irrigated_bmps',
-    'intensificationnapp_rainfed_bmps',
-    'extensificationnapp_rainfedfootprint_gapfilled',
-    'intensificationnapp_irrigated',
-    'intensificationnapp_rainfed',
-])
+float_nan = float(numpy.nan)
+SCRUB_IDS = {
+    'intensificationnapp_irrigated_bmps': float_nan,
+    'intensificationnapp_rainfed_bmps': float_nan,
+    'extensificationnapp_rainfedfootprint_gapfilled': float_nan,
+    'intensificationnapp_irrigated': float_nan,
+    'intensificationnapp_rainfed': float_nan,
+}
 
 # DEFINE SCENARIOS HERE SPECIFYING 'lulc_id', 'precip_id', 'fertilizer_id', and 'biophysical_table_id'
 # name the key of the scenario something unique

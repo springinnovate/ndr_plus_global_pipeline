@@ -318,17 +318,24 @@ def scrub_raster(
         scrub_nodata = target_nodata
 
     non_finite_count = 0
+    nan_count = 0
     large_value_count = 0
     close_to_nodata = 0
 
     def _scrub_op(base_array):
         nonlocal non_finite_count
+        nonlocal nan_count
         nonlocal large_value_count
         nonlocal close_to_nodata
+
         result = numpy.copy(base_array)
         non_finite_mask = ~numpy.isfinite(result)
         non_finite_count += numpy.count_nonzero(non_finite_mask)
         result[non_finite_mask] = scrub_nodata
+
+        nan_mask = numpy.isnan(result)
+        nan_count += numpy.count_nonzero(nan_mask)
+        result[nan_mask] = scrub_nodata
 
         large_value_mask = numpy.abs(result) >= max_abs
         large_value_count += numpy.count_nonzero(large_value_mask)
@@ -350,6 +357,7 @@ def scrub_raster(
         LOGGER.warning(
             f'{base_raster_path} scrubbed these values:\n'
             f'\n\tnon_finite_count: {non_finite_count}'
+            f'\n\tnan_count: {nan_count}'
             f'\n\tlarge_value_count: {large_value_count}'
             f'\n\tclose_to_nodata: {close_to_nodata} '
             f'\n\tto the nodata value of: {scrub_nodata}')

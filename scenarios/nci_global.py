@@ -71,7 +71,6 @@ for key, value in ECOSHARDS.items():
 SCRUB_IDS = {
     'intensificationnapp_irrigated_bmps',
     'intensificationnapp_rainfed_bmps',
-    'extensificationnapp_rainfedfootprint_gapfilled',
     'intensificationnapp_irrigated',
     'intensificationnapp_rainfed',
 }

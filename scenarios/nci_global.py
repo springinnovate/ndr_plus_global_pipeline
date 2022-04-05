@@ -56,7 +56,7 @@ ECOSHARDS = {
     ## these ecoshards there at the moment.
     'intensificationnapp_irrigated_bmps': f'{SHERLOCK_SCRATCH}/nci-ecoshards/fertilizer-layers-2022-03-08/intensified_irrigated_n_app_bmps_md5_a773d463101ef827849ef847ddbbe881.tif',
     'intensificationnapp_rainfed_bmps': f'{SHERLOCK_SCRATCH}/nci-ecoshards/fertilizer-layers-2022-03-08/intensified_rainfed_n_app_bmps_md5_7637f211bb13a3ec66b00491d9518110.tif',
-    'extensificationnapp_rainfedfootprint_gapfilled': f'{SHERLOCK_SCRATCH}/nci-ecoshards/fertilizer-layers-2022-03-08/current_n_app_md5_a7e226b3418504591095a704c2409f16.tif',
+    'extensificationnapp_rainfedfootprint_gapfilled': f'{SHERLOCK_SCRATCH}/nci-ecoshards/finaltotalNfertratescurrentRevQ_add_background_md5_bd57fc740fe61b99133a4e22d3e89ece.tif',
     'intensificationnapp_irrigated': f'{SHERLOCK_SCRATCH}/nci-ecoshards/fertilizer-layers-2022-03-08/intensified_irrigated_n_app_md5_f472499f546b92835e8011b2654b253a.tif',
     'intensificationnapp_rainfed': f'{SHERLOCK_SCRATCH}/nci-ecoshards/fertilizer-layers-2022-03-08/intensified_rainfed_n_app_md5_48687737e6fdf931ddb163c6c9694e44.tif',
 }

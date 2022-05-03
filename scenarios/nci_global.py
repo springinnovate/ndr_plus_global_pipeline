@@ -71,7 +71,7 @@ ECOSHARDS = {
 # JD sanity check to make sure these files exist.
 for key, value in ECOSHARDS.items():
     if value.startswith(SHERLOCK_SCRATCH):
-        assert os.path.exists(value)
+        assert os.path.exists(value), f'File not found: {value}'
 
 # put IDs here that need to be scrubbed, you may know these a priori or you
 # may run the pipeline and see an error and realize you need to add them

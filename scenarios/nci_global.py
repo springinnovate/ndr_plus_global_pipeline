@@ -27,7 +27,7 @@ ECOSHARDS = {
     'fixedarea_intensified_irrigated': f'{ECOSHARD_PREFIX}nci-ecoshards/one_last_run/scenarios052320_fixedarea_intensified_irrigated_md5_0b96c3ff00696a454d6c2fffb2ee1415.tif',
     'fixedarea_intensified_rainfed': f'{ECOSHARD_PREFIX}nci-ecoshards/one_last_run/scenarios052320_fixedarea_intensified_rainfed_md5_ec3a78c825186a12c16f3f7442eb03f4.tif',
     'grazing_expansion_lulc': f'{ECOSHARD_PREFIX}nci-ecoshards/one_last_run/scenarios0221_grazing_expansion_md5_140803bc8aef02a1742aa1d1757e9e76.tif',
-    'restoration': f'{ECOSHARD_PREFIX}nci-ecoshards/one_last_run/scenarios0221_restoration_md5_16450b43f0a232b32a847c9738affda3.tif',
+    'restoration_lulc': f'{ECOSHARD_PREFIX}nci-ecoshards/one_last_run/scenarios0221_restoration_md5_16450b43f0a232b32a847c9738affda3.tif',
     'sustainable_current': f'{ECOSHARD_PREFIX}nci-ecoshards/one_last_run/scenarios0321_sustainable_current_md5_82afe022ffa8485a9b10154ee844b54f.tif',
 
     # Fertilizer
@@ -59,6 +59,13 @@ ECOSHARDS = {
     'extensificationnapp_rainfedfootprint_gapfilled': f'{SHERLOCK_SCRATCH}/nci-ecoshards/finaltotalNfertratescurrentRevQ_add_background_md5_bd57fc740fe61b99133a4e22d3e89ece.tif',
     'intensificationnapp_irrigated': f'{SHERLOCK_SCRATCH}/nci-ecoshards/fertilizer-layers-2022-03-08/intensified_irrigated_n_app_md5_f472499f546b92835e8011b2654b253a.tif',
     'intensificationnapp_rainfed': f'{SHERLOCK_SCRATCH}/nci-ecoshards/fertilizer-layers-2022-03-08/intensified_rainfed_n_app_md5_48687737e6fdf931ddb163c6c9694e44.tif',
+
+    # Section 4 - These are the additional LULCs that Rafa and Becky said
+    # should be used for the Forestry, Grazing and Restoration scenarios.
+    # These rasters are merely ecosharded versions of the rasters contained at
+    # https://drive.google.com/drive/u/1/folders/13g52ihP7G2WrYuzl6-gO9yuCwhD3AEw-
+    # The grazing_expansion_lulc and restoration_lulc were already ecosharded.
+    'forestry_expansion_lulc': f'{SHERLOCK_SCRATCH}/nci-ecoshards/forestry_expansion_md5_215cd2a3db0c8a1a5451f395e87568ec.tif',
 }
 
 # JD sanity check to make sure these files exist.
@@ -132,18 +139,24 @@ SCENARIOS = {
         'fertilizer_id': 'intensificationnapp_irrigated',
         'biophysical_table_id': 'nci-ndr-biophysical_table_forestry_grazing',
     },
-    #'grazing_expansion': {
-    #    'lulc_id': 'grazing_expansion_lulc',
-    #    'precip_id': 'worldclim_2015',
-    #    'fertilizer_id': 'extensificationnapp_rainfedfootprint_gapfilled',
-    #    'biophysical_table_id': 'nci-ndr-biophysical_table_forestry_grazing',
-    #},
-    #'restoration': {
-    #    'lulc_id': 'restoration',
-    #    'precip_id': 'worldclim_2015',
-    #    'fertilizer_id': 'extensificationnapp_rainfedfootprint_gapfilled',
-    #    'biophysical_table_id': 'nci-ndr-biophysical_table_forestry_grazing',
-    #},
+    'forestry_expansion': {
+        'lulc_id': 'forestry_expansion_lulc',
+        'precip_id': 'worldclim_2015',
+        'fertilizer_id': 'extensificationnapp_rainfedfootprint_gapfilled',
+        'biophysical_table_id': 'nci-ndr-biophysical_table_forestry_grazing',
+    },
+    'grazing_expansion': {
+        'lulc_id': 'grazing_expansion_lulc',
+        'precip_id': 'worldclim_2015',
+        'fertilizer_id': 'extensificationnapp_rainfedfootprint_gapfilled',
+        'biophysical_table_id': 'nci-ndr-biophysical_table_forestry_grazing',
+    },
+    'restoration': {
+        'lulc_id': 'restoration_lulc',
+        'precip_id': 'worldclim_2015',
+        'fertilizer_id': 'extensificationnapp_rainfedfootprint_gapfilled',
+        'biophysical_table_id': 'nci-ndr-biophysical_table_forestry_grazing',
+    },
     'sustainable_currentpractices': {
         'lulc_id': 'sustainable_current',
         'precip_id': 'worldclim_2015',

@@ -66,6 +66,12 @@ ECOSHARDS = {
     # https://drive.google.com/drive/u/1/folders/13g52ihP7G2WrYuzl6-gO9yuCwhD3AEw-
     # The grazing_expansion_lulc and restoration_lulc were already ecosharded.
     'forestry_expansion_lulc': f'{SHERLOCK_SCRATCH}/nci-ecoshards/forestry_expansion_md5_215cd2a3db0c8a1a5451f395e87568ec.tif',
+
+    # Section 5 - these are additional files that Rafa and Becky said should be
+    # used for the new "baseline" scenario.
+    'baseline_lulc': f'{SHERLOCK_SCRATCH}/nci-ecoshards/modifiedESA_2022_06_03_md5_7dc8402ad44251e8021f4a72559e5f32.tif',
+    'baseline_fertilizer': f'{SHERLOCK_SCRATCH}/nci-ecoshards/current_n_app_md5_a7e226b3418504591095a704c2409f16.tif',
+    '
 }
 
 # JD sanity check to make sure these files exist.
@@ -163,4 +169,10 @@ SCENARIOS = {
         'fertilizer_id': 'extensificationnapp_rainfedfootprint_gapfilled',
         'biophysical_table_id': 'nci-ndr-biophysical_table_forestry_grazing',
     },
+    'baseline': {
+        'lulc_id': 'baseline_lulc'
+        'precip_id': 'worldclim_2015',
+        'fertilizer_id': 'baseline_fertilizer',
+        'biophysical_table_id': 'nci-ndr-biophysical_table_forestry_grazing',
+    }
 }

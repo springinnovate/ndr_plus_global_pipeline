@@ -36,6 +36,12 @@ except KeyError:
     WORKSPACE_DIR = 'global_ndr_plus_workspace'
 
 try:
+    if not os.path.exists(WORKSPACE_DIR):
+        os.makedirs(WORKSPACE_DIR)
+except OSError as e:
+    print(f"Could not make workspace dir at import: {e}")
+
+try:
     LOCAL_ECOSHARD_CACHE_DIR = os.environ['ECOSHARD_CACHE_DIR']
 except KeyError:
     LOCAL_ECOSHARD_CACHE_DIR = '/home/groups/gdaily/nci-local-ecoshard-cache'

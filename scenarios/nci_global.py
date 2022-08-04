@@ -86,7 +86,6 @@ SCRUB_IDS = {
     'intensificationnapp_irrigated',
     'intensificationnapp_rainfed',
     'baseline_fertilizer',
-    'baseline_lulc',
 }
 
 # DEFINE SCENARIOS HERE SPECIFYING 'lulc_id', 'precip_id', 'fertilizer_id', and 'biophysical_table_id'
